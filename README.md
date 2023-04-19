@@ -27,6 +27,25 @@ em seguida execute o comando abaixo
 chmod +x mysql-zabbix.sh
 ```
 
+copie o conteudo abaixo, crie um arquivo no linux chamado trap-zabbix.sh e cole o conteudo
+
+
+```sh
+docker run -d --name zabbix-snmptraps -t \
+--restart always \
+-p 162:1162/udp \
+-v /docker/zabbix/snmptraps:/var/lib/zabbix/snmptraps:rw \
+-v /docker/zabbix/mibs:/usr/share/snmp/mibs:ro \
+--network=zabbix \
+zabbix/zabbix-snmptraps
+
+```
+
+em seguida execute o comando abaixo
+
+```sh
+chmod +x trap-zabbix.sh
+```
 
 copie o conteudo abaixo, crie um arquivo no linux chamado server-zabbix.sh e cole o conteudo
 ```sh
