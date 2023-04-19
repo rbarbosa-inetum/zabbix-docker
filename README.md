@@ -74,3 +74,12 @@ em seguida execute o comando abaixo
 ```sh
 chmod +x web-zabbix.sh
 ```
+
+
+Por fim execute os comandos abaixo um por vez
+
+```sh
+./mysql-zabbix.sh
+./server-zabbix.sh
+./web-zabbix.sh
+```
