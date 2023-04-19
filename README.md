@@ -99,6 +99,7 @@ Por fim execute os comandos abaixo um por vez
 
 ```sh
 ./mysql-zabbix.sh
+./trap-zabbix.sh
 ./server-zabbix.sh
 ./web-zabbix.sh
 ```
