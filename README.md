@@ -26,3 +26,51 @@ em seguida execute o comando abaixo
 ```sh
 chmod +x mysql-zabbix.sh
 ```
+
+
+copie o conteudo abaixo, crie um arquivo no linux chamado server-zabbix.sh e cole o conteudo
+```sh
+docker run -d --name zabbix-server \
+--restart always \
+-p 10051:10051 \
+-e DB_SERVER_HOST="zabbix-mysql" \
+-e DB_SERVER_PORT="3306" \
+-e MYSQL_ROOT_PASSWORD="secret" \
+-e MYSQL_DATABASE="zabbix" \
+-e MYSQL_USER="zabbix" \
+-e MYSQL_PASSWORD="zabbix" \
+-e ZBX_ENABLE_SNMP_TRAPS="true" \
+--network=zabbix \
+--volumes-from zabbix-snmptraps \
+zabbix/zabbix-server-mysql
+
+```
+em seguida execute o comando abaixo
+
+```sh
+chmod +x server-zabbix.sh
+```
+
+copie o conteudo abaixo, crie um arquivo no linux chamado web-zabbix.sh e cole o conteudo
+
+```sh
+docker run -d --name zabbix-web \
+--restart always \
+-p 80:8080 \
+-e ZBX_SERVER_HOST="zabbix-server" \
+-e DB_SERVER_HOST="zabbix-mysql" \
+-e DB_SERVER_PORT="3306" \
+-e MYSQL_ROOT_PASSWORD="secret" \
+-e MYSQL_DATABASE="zabbix" \
+-e MYSQL_USER="zabbix" \
+-e MYSQL_PASSWORD="zabbix" \
+-e PHP_TZ="America/Sao_Paulo" \
+--network=zabbix \
+zabbix/zabbix-web-nginx-mysql
+
+```
+em seguida execute o comando abaixo
+
+```sh
+chmod +x web-zabbix.sh
+```
